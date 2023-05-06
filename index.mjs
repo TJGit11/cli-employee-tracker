@@ -13,6 +13,7 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
+// inquirer prompt - check bootcamp for example
 let { firstName } = await inquirer.prompt([
   {
     type: "input",
