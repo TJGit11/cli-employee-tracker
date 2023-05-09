@@ -12,20 +12,3 @@ const pool = mysql.createPool({
   idleTimeout: 60000, // idle connections timeout, in milliseconds, the default value is 60000
   queueLimit: 0,
 });
-
-// inquirer prompt - check bootcamp for example
-let { firstName } = await inquirer.prompt([
-  {
-    type: "input",
-    name: "firstName",
-  },
-]);
-
-const promisePool = pool.promise();
-
-const [rows, fields] = await promisePool.query(
-  "SELECT * from example where name = ?",
-  firstName
-);
-
-console.table(rows);
