@@ -19,5 +19,14 @@ VALUES ("Lead Accountant", 123000.00, 1)
 ("Salesperson", 75000.00, 5)
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES 
+VALUES ("Mike", "Jones", 1, NULL)
+("John", "Jacob", 2, 1)
+("Aletheia", "Gonzales", 3, NULL)
+("Athena", "Markel", 4, 3)
+("Jet", "Jackson", 5, NULL)
+("Zenon", "Gotf", 6, 5)
+("Kelly", "Romano", 7, NULL)
+("Hulk", "Branson", 8, 7)
+("Arwin", "Alchenny", 9, NULL)
+("Jester", "Corbin", 10, 9)
 
