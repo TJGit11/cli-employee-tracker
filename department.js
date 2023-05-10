@@ -5,22 +5,30 @@ import { addDepartment, viewAllDepartments } from "./corpFunc.mjs";
 viewAllDepartments;
 addDepartment;
 
+//TODO initial prompt
+// inquirer.prompt([
+// {
+//     name: 'title',
+//     type: 'list',
+//     message: 'What would you like to do?"
+// ])
+// }
 // TODO finish add role prompt
 // inquirer.prompt([
 //   {
 //     name: 'title',
 //     type: 'input',
-//     message: "What is the role that you want to add to the database?"
+//     message: "What is the name of the role that you want to add?"
 //   },
 //   {
 //     name: 'salary',
 //     type: 'number',
-//     message: "How much does this role get paid?"
+//     message: "What is the salary of the role?"
 //   },
 //   {
 //     name: 'department_id',
 //     type: 'list',
-//     message: "What department would this role be in?",
+//     message: "Which department does the role belong to?",
 //     choices: []
 //   }
 // ])
@@ -35,7 +43,7 @@ addDepartment;
 //   {
 //     name: 'last_name',
 //     type: 'input',
-//     message: "What is their last name?"
+//     message: "What is employee's last name?"
 //   },
 //   {
 //     name: 'role_id',
@@ -50,12 +58,12 @@ addDepartment;
 //     choices: []
 //   }
 
-//TODO finish updatempployee prompt
+//TODO finish update employee prompt
 //inquirer.prompt([
 //   {
 //     name: 'employee_id',
 //     type: 'list',
-//     message: "What is the name of the updated employee?",
+//     message: "Which employee's role do you want to update?",
 //     choices: []
 //   },
 //   {

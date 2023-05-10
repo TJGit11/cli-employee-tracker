@@ -1,4 +1,6 @@
-import pool from "./pool.mjs";
+// import pool from "./pool.mjs";
+
+import { promisePool } from "./pool.mjs";
 
 // export function start() {
 //     inquirer.prompt([
@@ -9,29 +11,25 @@ import pool from "./pool.mjs";
 //             "View All Departments"
 //         ])
 
-export async function viewAllEmployees() {}
+export async function viewAllEmployees() {
+  const [rows] = await promisePool.query("SELECT * FROM employees");
+  console.table(rows);
+}
 
 export async function addEmployee() {}
 
 export async function updateEmployeeRole() {}
 
 export async function viewAllRoles() {
-  const [rows] = await pool.query(
-    "SELECT roles.id, roles.title, roles.salary, role.department_id"
-  );
+  const [rows] = await promisePool.query("SELECT * FROM roles");
   console.table(rows);
 }
 
 export async function addRole() {}
 
 export async function viewAllDepartments() {
-  try {
-    const [rows] = await pool.query("SELECT * FROM department");
-    console.table(rows);
-    return rows; // Return the result of the query
-  } catch (err) {
-    console.error(err);
-  }
+  const [rows] = await promisePool.query("SELECT * FROM department");
+  console.table(rows);
 }
 
 export async function addDepartment() {}

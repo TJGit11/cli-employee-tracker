@@ -11,5 +11,6 @@ const pool = mysql.createPool({
   idleTimeout: 60000, // idle connections timeout, in milliseconds, the default value is 60000
   queueLimit: 0,
 });
+const promisePool = pool.promise();
 
-export default pool;
+export { promisePool };
