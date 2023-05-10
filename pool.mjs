@@ -1,5 +1,4 @@
 import mysql from "mysql2";
-import inquirer from "inquirer";
 
 const pool = mysql.createPool({
   host: "localhost",
@@ -13,4 +12,4 @@ const pool = mysql.createPool({
   queueLimit: 0,
 });
 
-module.exports = { employee };
+export default pool;
