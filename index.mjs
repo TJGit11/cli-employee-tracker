@@ -58,5 +58,8 @@ let { firstName } = await inquirer.prompt([
 // }
 
 // const promisePool = pool.promise();
-const [rows] = await promisePool.query("SELECT * FROM employee");
+const [rows] = await promisePool.query(
+  "DELETE FROM employee where first_name = ?",
+  firstName
+);
 console.table(rows);
