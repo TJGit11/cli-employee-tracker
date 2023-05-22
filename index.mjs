@@ -46,6 +46,9 @@ async function begin() {
     case "Add a new department":
       addDepartment();
       break;
+    case "Update an employee role":
+      updateEmployeeRole();
+      break;
   }
 }
 // begin();
