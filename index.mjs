@@ -9,6 +9,7 @@ import {
   updateEmployeeRole,
   viewAllDepartments,
   addDepartment,
+  quitEmployeeTracker,
 } from "./corpFunc.mjs";
 
 async function begin() {
@@ -24,6 +25,7 @@ async function begin() {
       "Update an employee role",
       "View all departments",
       "Add a new department",
+      "Quit",
     ],
   });
 
@@ -48,6 +50,9 @@ async function begin() {
       break;
     case "Update an employee role":
       updateEmployeeRole();
+      break;
+    case "Quit":
+      quitEmployeeTracker();
       break;
   }
 }

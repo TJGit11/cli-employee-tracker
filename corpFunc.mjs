@@ -1,5 +1,5 @@
 // import pool from "./pool.mjs";
-
+import inquirer from "inquirer";
 import { promisePool } from "./utils/pool.mjs";
 
 export async function viewAllEmployees() {
@@ -9,7 +9,19 @@ export async function viewAllEmployees() {
   console.table(rows);
 }
 
-export async function addEmployee() {}
+export async function addEmployee() {
+  const { newDepartment } = await inquirer.prompt([
+    {
+      type: "input",
+      name: "newEmployee",
+      message: "What is the name of the new employee?",
+    },
+  ]);
+  const [rows] = await promisePool.query(
+    "INSERT INTO employee (newEmployee) VALUES (?)",
+    newEmployee
+  );
+}
 
 export async function updateEmployeeRole() {}
 
@@ -20,11 +32,49 @@ export async function viewAllRoles() {
   console.table(rows);
 }
 
-export async function addRole() {}
+export async function addRole() {
+  const { newRole } = await inquirer.prompt([
+    {
+      type: "input",
+      name: "newRole",
+      message: "What is the name of the new role?",
+    },
+  ]);
+  const [rows] = await promisePool.query(
+    "INSERT INTO roles (newRole) VALUES (?)",
+    newRole
+  );
+  console.table(rows);
+}
 
 export async function viewAllDepartments() {
   const [rows] = await promisePool.query("SELECT * FROM department");
   console.table(rows);
 }
 
-export async function addDepartment() {}
+export async function addDepartment() {
+  const { newDepartment } = await inquirer.prompt([
+    {
+      type: "input",
+      name: "newDepartment",
+      message: "What is the name of the new department?",
+    },
+  ]);
+  const [rows] = await promisePool.query(
+    "INSERT INTO department (department.name) VALUES (?)",
+    newDepartment,
+    function (err, results) {
+      if (rows.length === 0) {
+        console.log("Can't enter in that department");
+      } else {
+        console.table(rows);
+      }
+    }
+  );
+  console.log("Added", newDepartment, "to the database");
+  console.table(rows);
+}
+
+export async function quitEmployeeTracker() {
+  console.log("Goodbye!");
+}
