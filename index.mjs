@@ -1,6 +1,6 @@
 import mysql from "mysql2";
 import inquirer from "inquirer";
-import { promisePool } from "./pool.mjs";
+import { promisePool } from "./utils/pool.mjs";
 import {
   viewAllEmployees,
   addEmployee,
@@ -9,6 +9,7 @@ import {
   addRole,
   // viewAllDepartments,
   addDepartment,
+  viewAllDepartments,
 } from "./corpFunc.mjs";
 
 // viewAllEmployees;
@@ -38,14 +39,16 @@ import {
 //   idleTimeout: 60000, // idle connections timeout, in milliseconds, the default value is 60000
 //   queueLimit: 0,
 // });
-
+viewAllEmployees();
+viewAllRoles();
+viewAllDepartments();
 // inquirer prompt - check bootcamp for example
-let { firstName } = await inquirer.prompt([
-  {
-    type: "input",
-    name: "firstName",
-  },
-]);
+// let { firstName } = await inquirer.prompt([
+//   {
+//     type: "input",
+//     name: "firstName",
+//   },
+// ]);
 // const promisePool = pool.promise();
 // async function viewAllDepartments() {
 //   try {
@@ -58,8 +61,8 @@ let { firstName } = await inquirer.prompt([
 // }
 
 // const promisePool = pool.promise();
-const [rows] = await promisePool.query(
-  "DELETE FROM employee where first_name = ?",
-  firstName
-);
-console.table(rows);
+// const [rows] = await promisePool.query(
+//   "DELETE FROM employee where first_name = ?",
+//   firstName
+// );
+// console.table(rows);

@@ -1,6 +1,6 @@
 import mysql from "mysql2";
 import inquirer from "inquirer";
-import { addDepartment, viewAllDepartments } from "./corpFunc.mjs";
+import { addDepartment, viewAllDepartments } from "../corpFunc.mjs";
 
 viewAllDepartments;
 addDepartment;

@@ -1,6 +1,6 @@
 // import pool from "./pool.mjs";
 
-import { promisePool } from "./pool.mjs";
+import { promisePool } from "./utils/pool.mjs";
 
 // export function start() {
 //     inquirer.prompt([
@@ -12,7 +12,7 @@ import { promisePool } from "./pool.mjs";
 //         ])
 
 export async function viewAllEmployees() {
-  const [rows] = await promisePool.query("SELECT * FROM employees");
+  const [rows] = await promisePool.query("SELECT * FROM employee");
   console.table(rows);
 }
 
