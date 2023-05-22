@@ -27,19 +27,26 @@ async function begin() {
     ],
   });
 
-  if (answers.options === "View all employees") {
-    viewAllEmployees();
+  switch (answers["options"]) {
+    case "View all employees":
+      viewAllEmployees();
+      break;
+    case "View all employee roles":
+      viewAllRoles();
+      break;
+    case "View all departments":
+      viewAllDepartments();
+      break;
+    case "Add an employee":
+      addEmployee();
+      break;
+    case "Add a new employee role":
+      addRole();
+      break;
+    case "Add a new department":
+      addDepartment();
+      break;
   }
-  // begin();
 }
+// begin();
 begin();
-// viewAllEmployees();
-// viewAllRoles();
-// viewAllDepartments();
-
-// const promisePool = pool.promise();
-// const [rows] = await promisePool.query(
-//   "DELETE FROM employee where first_name = ?",
-//   firstName
-// );
-// console.table(rows);
