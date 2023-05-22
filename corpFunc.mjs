@@ -18,7 +18,7 @@ export async function addEmployee() {
     },
   ]);
   const [rows] = await promisePool.query(
-    "INSERT INTO employee (newEmployee) VALUES (?)",
+    "INSERT INTO employee (employee.name) VALUES (?)",
     newEmployee
   );
 }
@@ -41,7 +41,7 @@ export async function addRole() {
     },
   ]);
   const [rows] = await promisePool.query(
-    "INSERT INTO roles (newRole) VALUES (?)",
+    "INSERT INTO roles (role.title) VALUES (?)",
     newRole
   );
   console.table(rows);
