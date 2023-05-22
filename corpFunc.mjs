@@ -15,7 +15,7 @@ export async function updateEmployeeRole() {}
 
 export async function viewAllRoles() {
   const [rows] = await promisePool.query(
-    "SELECT roles_id, roles.title, department_id, roles.salary "
+    "SELECT roles.id, roles.title, department.name AS department, roles.salary FROM roles JOIN department on roles.department_id = department.id"
   );
   console.table(rows);
 }

@@ -51,5 +51,4 @@ async function begin() {
       break;
   }
 }
-// begin();
 begin();
