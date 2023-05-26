@@ -10,7 +10,7 @@ export async function viewAllEmployees() {
 }
 
 export async function addEmployee() {
-  const { newDepartment } = await inquirer.prompt([
+  const { newEmployee } = await inquirer.prompt([
     {
       type: "input",
       name: "newEmployee",
@@ -21,6 +21,8 @@ export async function addEmployee() {
     "INSERT INTO employee (employee.name) VALUES (?)",
     newEmployee
   );
+  console.log("Added", newEmployee, "to the database");
+  console.table(rows);
 }
 
 export async function updateEmployeeRole() {}
@@ -44,6 +46,7 @@ export async function addRole() {
     "INSERT INTO roles (role.title) VALUES (?)",
     newRole
   );
+  console.log("Added", newRole, "to the database");
   console.table(rows);
 }
 
