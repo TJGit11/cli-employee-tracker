@@ -12,7 +12,7 @@ import {
   quitEmployeeTracker,
 } from "./corpFunc.mjs";
 
-async function begin() {
+export async function begin() {
   const answers = await inquirer.prompt({
     message: "What would you like to do?",
     type: "list",
