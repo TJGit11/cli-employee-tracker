@@ -25,6 +25,7 @@ export async function addEmployee() {
   );
   console.log("Added", newEmployee, "to the database");
   console.table(rows);
+  begin();
 }
 
 export async function updateEmployeeRole() {}
@@ -34,6 +35,7 @@ export async function viewAllRoles() {
     "SELECT roles.id, roles.title, department.name AS department, roles.salary FROM roles JOIN department on roles.department_id = department.id"
   );
   console.table(rows);
+  begin();
 }
 
 export async function addRole() {
@@ -45,11 +47,12 @@ export async function addRole() {
     },
   ]);
   const [rows] = await promisePool.query(
-    "INSERT INTO roles (role.title) VALUES (?)",
+    "INSERT INTO roles (roles.title) VALUES (?)",
     newRole
   );
   console.log("Added", newRole, "to the database");
   console.table(rows);
+  begin();
 }
 
 export async function viewAllDepartments() {
@@ -78,6 +81,7 @@ export async function addDepartment() {
   );
   console.log("Added", newDepartment, "to the database");
   console.table(rows);
+  begin();
 }
 
 export async function quitEmployeeTracker() {
