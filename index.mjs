@@ -1,6 +1,3 @@
-import mysql from "mysql2";
-import inquirer from "inquirer";
-import { promisePool } from "./utils/pool.mjs";
 import { begin } from "./utils/corpFunc.mjs";
 
 begin();
