@@ -56,7 +56,21 @@ export async function viewAllEmployees() {
   console.table(rows);
   begin();
 }
+// Function to view all departments //
+export async function viewAllDepartments() {
+  const [rows] = await promisePool.query("SELECT * FROM department");
+  console.table(rows);
+  begin();
+}
 
+// Function to see all the roles //
+export async function viewAllRoles() {
+  const [rows] = await promisePool.query(
+    "SELECT roles.id, roles.title, department.name AS department, roles.salary FROM roles JOIN department on roles.department_id = department.id"
+  );
+  console.table(rows);
+  begin();
+}
 // Function to add a new employee //
 export async function addEmployee() {
   const [rolesArray, managerArray] = await Promise.all([
@@ -108,17 +122,6 @@ export async function addEmployee() {
   begin();
 }
 
-// Function to update the role of an employee //
-export async function updateEmployeeRole() {}
-
-// Function to see all the roles //
-export async function viewAllRoles() {
-  const [rows] = await promisePool.query(
-    "SELECT roles.id, roles.title, department.name AS department, roles.salary FROM roles JOIN department on roles.department_id = department.id"
-  );
-  console.table(rows);
-  begin();
-}
 // Function to add a new role //
 export async function addRole() {
   try {
@@ -131,10 +134,6 @@ export async function addRole() {
       value: department.id,
     }));
 
-    // const departments = getDepartments.map((row) => ({
-    //   name: row.name,
-    //   value: row.id,
-    // }));
     const { newRole, newRoleDepartment, newRoleSalary } = await inquirer.prompt(
       [
         {
@@ -168,13 +167,6 @@ export async function addRole() {
     console.error(err);
   }
 }
-
-// Function to view all departments //
-export async function viewAllDepartments() {
-  const [rows] = await promisePool.query("SELECT * FROM department");
-  console.table(rows);
-  begin();
-}
 // Function to add a new department //
 export async function addDepartment() {
   const { newDepartment } = await inquirer.prompt([
@@ -192,6 +184,9 @@ export async function addDepartment() {
   // console.table(rows);
   begin();
 }
+// Function to update the role of an employee //
+export async function updateEmployeeRole() {}
+
 // Function to quit the program //
 export async function quitEmployeeTracker() {
   console.log("Goodbye!");
