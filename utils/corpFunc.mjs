@@ -185,7 +185,44 @@ export async function addDepartment() {
   begin();
 }
 // Function to update the role of an employee //
-export async function updateEmployeeRole() {}
+export async function updateEmployeeRole() {
+  const [rolesArray, employeeArray] = await Promise.all([
+    promisePool.query("SELECT id, title FROM roles"),
+    promisePool.query(
+      "SELECT id, CONCAT(first_name, ' ', last_name) AS employee_name FROM employee"
+    ),
+  ]);
+  const roles = rolesArray[0].map((row) => ({
+    name: row.title,
+    value: row.id,
+  }));
+  const employees = employeeArray[0].map((row) => ({
+    name: row.employee_name,
+    value: row.id,
+  }));
+
+  const { employee_name, role } = await inquirer.prompt([
+    {
+      type: "list",
+      name: "employee_name",
+      message: "Which employee role do you want to change?",
+      choices: [...employees],
+    },
+    {
+      type: "list",
+      name: "role",
+      message: "What role do you want to give this employee?",
+      choices: [...roles],
+    },
+  ]);
+
+  const [rows] = await promisePool.query(
+    "UPDATE employee SET role_id = ? where id = ?",
+    [role, employee_name]
+  );
+  console.table(rows);
+  begin();
+}
 
 // Function to quit the program //
 export async function quitEmployeeTracker() {
