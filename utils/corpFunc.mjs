@@ -126,45 +126,46 @@ export async function addRole() {
       "SELECT * FROM department"
     );
 
+    const departments = getDepartments.map((department) => ({
+      name: department.name,
+      value: department.id,
+    }));
+
     // const departments = getDepartments.map((row) => ({
     //   name: row.name,
     //   value: row.id,
     // }));
-    const responses = await inquirer.prompt([
-      {
-        type: "input",
-        name: "newRole",
-        message: "What is the name of the new role?",
-      },
-      {
-        type: "list",
-        name: "newRoleDepartment",
-        message: "What department does the new role belong in?",
-        choices: getDepartments.map((department) => ({
-          name: department.name,
-          value: department.id,
-        })),
-      },
-      {
-        type: "number",
-        name: "newRoleSalary",
-        message: "What is the salary for this role?",
-      },
-    ]);
+    const { newRole, newRoleDepartment, newRoleSalary } = await inquirer.prompt(
+      [
+        {
+          type: "input",
+          name: "newRole",
+          message: "What is the name of the new role?",
+        },
+        {
+          type: "list",
+          name: "newRoleDepartment",
+          message: "What department does the new role belong in?",
+          choices: [...departments],
+        },
+        {
+          type: "number",
+          name: "newRoleSalary",
+          message: "What is the salary for this role?",
+        },
+      ]
+    );
 
     const [rows] = await promisePool.query(
-      ("INSERT INTO roles SET ?",
-      {
-        title: responses.newRole,
-        department_id: responses.newRoleDepartment,
-        salary: responses.newRoleSalary,
-      })
+      "INSERT INTO roles (title, department_id, salary) VALUES (?, ?, ?)",
+      [newRole, newRoleDepartment, newRoleSalary]
     );
+
     console.log("Added a new role to the database");
     console.table(rows);
+    begin();
   } catch (err) {
     console.error(err);
-    begin();
   }
 }
 
