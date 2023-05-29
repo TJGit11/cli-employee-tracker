@@ -59,18 +59,51 @@ export async function viewAllEmployees() {
 
 // Function to add a new employee //
 export async function addEmployee() {
-  const [newEmployee] = await inquirer.prompt([
+  const [rolesArray, managerArray] = await Promise.all([
+    promisePool.query("SELECT id, title FROM roles"),
+    promisePool.query(
+      "SELECT id, CONCAT(first_name, ' ', last_name) AS manager_name FROM employee"
+    ),
+  ]);
+
+  const roles = rolesArray[0].map((row) => ({
+    name: row.title,
+    value: row.id,
+  }));
+  const managers = managerArray[0].map((row) => ({
+    name: row.manager_name,
+    value: row.id,
+  }));
+
+  const { first_name, last_name, role, manager } = await inquirer.prompt([
     {
       type: "input",
       name: "first_name",
       message: "What is the name of the new employee?",
     },
+    {
+      type: "input",
+      name: "last_name",
+      message: "What is the last name of the employee?",
+    },
+    {
+      type: "list",
+      name: "role",
+      message: "What is the role of the employee?",
+      choices: [...roles],
+    },
+    {
+      type: "list",
+      name: "manager",
+      message: "Who is the employee's manager?",
+      choices: [{ name: "None", value: null }, ...managers],
+    },
   ]);
   const [rows] = await promisePool.query(
-    "INSERT INTO employee (employee.first_name) VALUES (?)",
-    [newEmployee]
+    "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)",
+    [first_name, last_name, role, manager]
   );
-  console.log("Added", newEmployee, "to the database");
+  console.log("Added new employee to the database");
   console.table(rows);
   begin();
 }
@@ -88,39 +121,51 @@ export async function viewAllRoles() {
 }
 // Function to add a new role //
 export async function addRole() {
-  const [getDepartments] = await promisePool.query(
-    "SELECT id, name, FROM department"
-  );
-  const departments = getDepartments.map((row) => ({
-    name: row.name,
-    value: row.id,
-  }));
-  const { newRole, newRoleDepartment, newRoleSalary } = await inquirer.prompt([
-    {
-      type: "input",
-      name: "newRole",
-      message: "What is the name of the new role?",
-    },
-    {
-      type: "input",
-      name: "newRoleDepartment",
-      message: "What department does the new role belong in?",
-    },
-    {
-      type: "input",
-      name: "newRoleSalary",
-      message: "What is the salary for this role?",
-    },
-  ]);
+  try {
+    const [getDepartments] = await promisePool.query(
+      "SELECT * FROM department"
+    );
 
-  const [rows] = await promisePool.query(
-    "INSERT INTO roles (title, department_id, salary)  VALUES (?, ?, ?)"[
-      (newRole, newRoleDepartment, newRoleSalary)
-    ]
-  );
-  console.log("Added a new role to the database");
-  console.table(rows);
-  begin();
+    // const departments = getDepartments.map((row) => ({
+    //   name: row.name,
+    //   value: row.id,
+    // }));
+    const responses = await inquirer.prompt([
+      {
+        type: "input",
+        name: "newRole",
+        message: "What is the name of the new role?",
+      },
+      {
+        type: "list",
+        name: "newRoleDepartment",
+        message: "What department does the new role belong in?",
+        choices: getDepartments.map((department) => ({
+          name: department.name,
+          value: department.id,
+        })),
+      },
+      {
+        type: "number",
+        name: "newRoleSalary",
+        message: "What is the salary for this role?",
+      },
+    ]);
+
+    const [rows] = await promisePool.query(
+      ("INSERT INTO roles SET ?",
+      {
+        title: responses.newRole,
+        department_id: responses.newRoleDepartment,
+        salary: responses.newRoleSalary,
+      })
+    );
+    console.log("Added a new role to the database");
+    console.table(rows);
+  } catch (err) {
+    console.error(err);
+    begin();
+  }
 }
 
 // Function to view all departments //
