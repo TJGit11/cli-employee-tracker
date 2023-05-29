@@ -177,25 +177,18 @@ export async function viewAllDepartments() {
 }
 // Function to add a new department //
 export async function addDepartment() {
-  const newDepartment = await inquirer.prompt([
+  const { newDepartment } = await inquirer.prompt([
     {
       type: "input",
-      name: "department",
+      name: "newDepartment",
       message: "What is the name of the new department?",
     },
   ]);
   const [rows] = await promisePool.query(
-    "INSERT INTO department (department.name) VALUES (?)",
-    newDepartment,
-    function (err, results) {
-      if (rows.length === 0) {
-        console.log("Can't enter in that department");
-      } else {
-        // console.table(rows);
-      }
-    }
+    "INSERT INTO department (name) VALUES (?)",
+    [newDepartment]
   );
-  console.log("Added", newDepartment, "to the database");
+  console.log("Added a new department to the database");
   // console.table(rows);
   begin();
 }
