@@ -9,7 +9,7 @@ wumbo-employee-tracker
 - [Questions](#questions)
 
 ## Project Description
-This project demonstrates an employee tracker made
+This project demonstrates an employee tracker made via the CLI that allows the user to view and modify an employee database.
 ### [Walkthrough Video](https://drive.google.com/file/d/1KZw9hucJmRN3WLR6r0gkxCITTOE65fig/view)
 
 ## Installation
