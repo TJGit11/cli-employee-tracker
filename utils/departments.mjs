@@ -9,6 +9,8 @@ export async function viewAllDepartments() {
   begin();
 }
 
+//test
+
 // Function to add a new department //
 export async function addDepartment() {
   const { newDepartment } = await inquirer.prompt([
